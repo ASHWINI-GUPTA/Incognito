@@ -18,6 +18,10 @@ namespace Incognito.Models.AccountViewModels
         public string LastName { get; set; }
 
         [Required]
+        [MaxLength(240)]
+        public string Username { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

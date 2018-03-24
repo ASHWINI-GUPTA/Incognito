@@ -12,10 +12,14 @@ namespace Incognito.Models
     {
         [Required]
         [MaxLength(240)]
+        public string Username { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [MaxLength(240)]
+        [MaxLength(100)]
         [Display(Name = "First Name")]
         public string LastName { get; set; }
     }
