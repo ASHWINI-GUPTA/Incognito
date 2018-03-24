@@ -69,7 +69,6 @@ namespace Incognito
                     name: "public_profile",
                     template: "public/{username}",
                     defaults: new { controller = "User", action = "Public"});
-
             });
         }
     }

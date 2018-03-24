@@ -9,17 +9,18 @@ namespace Incognito.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
-        [MaxLength(70)]
+        [MaxLength(100)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [MaxLength(70)]
+        [MaxLength(100)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
         [MaxLength(240)]
-        public string Username { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
