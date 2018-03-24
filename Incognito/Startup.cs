@@ -59,9 +59,17 @@ namespace Incognito
 
             app.UseMvc(routes =>
             {
+                //routes.Routes.Add(new SubdomainRouter(routes.DefaultHandler, "localhost:44368", "User", "Public"));
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "public_profile",
+                    template: "public/{username}",
+                    defaults: new { controller = "User", action = "Public"});
+
             });
         }
     }
