@@ -21,11 +21,21 @@ namespace Incognito.Controllers
         public ActionResult Public(string username)
         {
             var lookUpUser = username;
+            var userFound = _context.Users
+                .FirstOrDefault(u => u.UserName == lookUpUser);
 
-            //var userFound = _context.Users.Where(u => u.)
+            if (userFound != null)
+            {
+                var userId = userFound.Id;
+                var userName = $"{userFound.FirstName} {userFound.LastName}, and ID {userId}";
 
-            //ViewData["User"] = username;
-            return View();
+                ViewData["User"] = userName;
+                return View();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
