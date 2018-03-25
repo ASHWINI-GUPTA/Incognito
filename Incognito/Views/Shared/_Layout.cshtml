@@ -7,12 +7,15 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link href="~/lib/bootswatch/cosmo/bootstrap.css" rel="stylesheet" />
+        <script src="~/lib/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <script src="~/lib/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -41,10 +44,13 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - Incognito</p>
-        </footer>
+
     </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy Ashwini Gupta - Created for demonstration purpose only.</span>
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

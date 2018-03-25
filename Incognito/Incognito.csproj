@@ -4,13 +4,13 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-Incognito-AE6EFA5D-3A8F-4550-953B-BEA1DF1CECD5</UserSecretsId>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Data\Migrations\20180324060149_AddingUsernameFieldToApplicationUser.cs" />
     <Compile Remove="Data\Migrations\20180324060149_AddingUsernameFieldToApplicationUser.Designer.cs" />
   </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
