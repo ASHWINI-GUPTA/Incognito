@@ -1,17 +1,15 @@
-﻿@model object
-
+﻿@model Incognito.Models.MessageViewModel.ReplyTextViewModel
 @{
     ViewBag.Title = "Title";
-    Layout = "_Layout";
 }
 
-<h2>@ViewData["User"]</h2>
-
-
-    <div class="col-md-4 text-center">
-        <img src="~/images/Ashwini.jpeg" alt="Demo" class="img-rounded" style="height: 220px; width:250px" />
-        <h2>@ViewData["User"]</h2>
+<div class="col-md-4 text-center">
+    <img src="~/images/Ashwini.jpeg" alt="Demo" class="img-rounded" style="height: 220px; width:250px" />
+    <h2>@ViewData["User"]</h2>
+</div>
+<div class="col-md-8">
+    <div class="form-group">
+        <input asp-for="Text" class="form-control" />
+        <span asp-validation-for="Text" class="text-danger"></span>
     </div>
-    <div class="col-md-4">
-        <p>Gupta</p>
-    </div>
+</div>
