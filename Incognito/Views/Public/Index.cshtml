@@ -22,7 +22,7 @@
         var receiverId = ViewData["receiverId"];
         }
 
-        <form asp-controller="User" asp-action="Public">
+        <form asp-controller="Public" asp-action="Index">
             <input type="hidden" asp-for="@receiverId" />
             <div class="form-group">
                 <textarea asp-for="Text" class="form-control"></textarea>

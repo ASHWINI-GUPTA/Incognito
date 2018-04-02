@@ -71,9 +71,15 @@ namespace Incognito.Controllers
 
                 _messageContext.Add(message);
                 await _messageContext.SaveChangesAsync();
-                return Ok();
+                return RedirectToAction(nameof(Success));
             }
             return View(viewModel);
         }
+
+        public IActionResult Success()
+        {
+            return View();
+        }
+
     }
 }
