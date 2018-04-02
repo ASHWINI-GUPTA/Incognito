@@ -16,12 +16,18 @@ namespace Incognito.Models
 
         public int Id { get; set; }
 
+        //public ApplicationUser Recevier { get; set; }
+
+        [Required]
+        public string RecevierId { get; set; }
+
         /// <summary>
         /// The Id of Currently LoggedIn User... If LoggedIn Else Null
         /// </summary>
-        public string UserId { get; set; }
+        public string SenderId { get; set; }
 
         [Required]
+        [MaxLength(2048)]
         public string Text { get; set; }
 
         /// <summary>

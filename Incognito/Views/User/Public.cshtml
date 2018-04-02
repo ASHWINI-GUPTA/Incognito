@@ -1,4 +1,4 @@
-﻿@model Incognito.Models.MessageViewModel.ReplyTextViewModel
+﻿@model Incognito.Models.MessageViewModel.MessageViewModel
 @{
     ViewBag.Title = "Title";
 }
@@ -18,12 +18,19 @@
 
     <div class="col col-md-7 text-center">
         <p class="lead">Leave your message below.</p>
-        <div class="form-group">
-            <textarea asp-for="Text" class="form-control"></textarea>
-            <span asp-validation-for="Text" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
-        </div>
+        @{
+        var receiverId = ViewData["receiverId"];
+        }
+
+        <form asp-controller="User" asp-action="Public">
+            <input type="hidden" asp-for="@receiverId" />
+            <div class="form-group">
+                <textarea asp-for="Text" class="form-control"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+            </div>
+        </form>
     </div>
 </div>
