@@ -71,7 +71,7 @@ namespace Incognito
                 routes.MapRoute(
                     name: "public_profile",
                     template: "public/{username}",
-                    defaults: new { controller = "User", action = "Public"});
+                    defaults: new { controller = "Public", action = "Index"});
             });
         }
     }
