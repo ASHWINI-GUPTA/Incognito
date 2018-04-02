@@ -3,13 +3,27 @@
     ViewBag.Title = "Title";
 }
 
-<div class="col-md-4 text-center">
-    <img src="~/images/Ashwini.jpeg" alt="Demo" class="img-rounded" style="height: 220px; width:250px" />
-    <h2>@ViewData["User"]</h2>
-</div>
-<div class="col-md-8">
-    <div class="form-group">
-        <input asp-for="Text" class="form-control" />
-        <span asp-validation-for="Text" class="text-danger"></span>
+<div class="row">
+    <div class="col col-md-4 d-flex justify-content-center" style="padding-bottom:25px;">
+        <div class="card" style=" width:256px;">
+            <img class="card-img-top" src="~/images/Ashwini.jpeg" alt="Card image cap" style="height:256px;">
+            <div class="card-body">
+                <h3 class="card-title">
+                    @ViewData["User"]
+                </h3>
+                <p class="card-text">Write some description here...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col col-md-7 text-center">
+        <p class="lead">Leave your message below.</p>
+        <div class="form-group">
+            <textarea asp-for="Text" class="form-control"></textarea>
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+        </div>
     </div>
 </div>
