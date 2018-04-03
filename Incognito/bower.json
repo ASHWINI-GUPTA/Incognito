@@ -4,6 +4,7 @@
   "dependencies": {
     "bootstrap": "4.0.0",
     "bootswatch": "4.0.0",
-    "fontawesome": "*"
+    "fontawesome": "*",
+    "bootbox.js": "*"
   }
 }
