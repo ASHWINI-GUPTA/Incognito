@@ -12,6 +12,7 @@ namespace Incognito.Controllers
     {
         public IActionResult Index()
         {
+
             return View();
         }
 

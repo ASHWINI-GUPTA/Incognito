@@ -1,0 +1,26 @@
+﻿@{
+    
+    ViewData["Title"] = @ViewData["User"] + " Profile";
+}
+
+<div class="row">
+    <div class="col col-md-4 d-flex justify-content-center" style="padding-bottom:25px;">
+        <div class="card" style=" width:256px;">
+            <img class="card-img-top" src="~/images/Ashwini.jpeg" alt="Card image cap" style="height:256px;">
+            <div class="card-body">
+                <h3 class="card-title">
+                    @ViewData["User"]
+                </h3>
+                <p class="card-text">Write some description here...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col col-md-7 text-center">
+        <h4>Messages</h4>
+        <hr />
+
+    </div>
+</div>
+
+

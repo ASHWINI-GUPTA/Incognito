@@ -2,6 +2,7 @@
 using Incognito.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Incognito.Controllers
 {
@@ -20,6 +21,11 @@ namespace Incognito.Controllers
             _messageContext = messageContext;
             _userManager = userManager;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        } 
 
     }
 }

@@ -68,7 +68,6 @@ namespace Incognito.Controllers
                 {
                     message.SenderId = senderId;
                 }
-
                 _messageContext.Add(message);
                 await _messageContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Success));
@@ -80,6 +79,5 @@ namespace Incognito.Controllers
         {
             return View();
         }
-
     }
 }

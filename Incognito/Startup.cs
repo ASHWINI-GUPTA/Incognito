@@ -66,7 +66,7 @@ namespace Incognito
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=About}/{id?}");
 
                 routes.MapRoute(
                     name: "public_profile",
