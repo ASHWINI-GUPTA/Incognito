@@ -1,5 +1,7 @@
-﻿@{
-    
+﻿@model IEnumerable<Incognito.Models.Message>
+@using Incognito.Models
+
+@{
     ViewData["Title"] = @ViewData["User"] + " Profile";
 }
 
@@ -9,18 +11,82 @@
             <img class="card-img-top" src="~/images/Ashwini.jpeg" alt="Card image cap" style="height:256px;">
             <div class="card-body">
                 <h3 class="card-title">
-                    @ViewData["User"]
+                    @ViewData["User"] 
                 </h3>
                 <p class="card-text">Write some description here...</p>
             </div>
         </div>
     </div>
 
-    <div class="col col-md-7 text-center">
+    <div class="col col-md-7">
         <h4>Messages</h4>
         <hr />
-
+        <div class="col message">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="col note">
+                        <div class="details">
+                            <div class="description">
+                                @item.Text
+                            </div>
+                            <div class="datetime">
+                                @item.SentTime.ToString("D")
+                            </div>
+                            <div class="popup-action">
+                                @*<a asp-action="Details" asp-route-id="@item.Id">
+                                        Details
+                                    </a>*@
+                                <a href="#" class="js-delete-message" message-id="@item.Id">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </div>
     </div>
 </div>
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-delete-message").click(function (e) {
+                var link = $(e.target);
 
+                bootbox.dialog({
+                    message: "Are you sure you want to delete the message?",
+                    title: "Confirm",
+                    buttons: {
+                        no: {
+                            label: "No",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Yes",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/v1/skill/" + link.attr("skill-id"),
+                                    method: "DELETE"
+                                })
+                                .done(function () {
+                                    link.parents("li").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                })
+                                .fail(function () {
+                                    alert("Something failed!");
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
