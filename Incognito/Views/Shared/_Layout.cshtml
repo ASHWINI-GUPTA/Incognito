@@ -19,7 +19,7 @@
         <link href="~/lib/bootswatch/dist/united/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-                integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" 
+                integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
                 crossorigin="anonymous">
         </script>
     </environment>
@@ -33,15 +33,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
-                </li>
+                @await Html.PartialAsync("_LinkPartial")
             </ul>
             @await Html.PartialAsync("_LoginPartial")
         </div>
@@ -52,7 +44,7 @@
     </div>
 
     <footer class="footer container-fluid">
-        <span class="text-muted">&copy Incognito- Made with &hearts; by <a href="https://twitter.com/fnlsg">Ashwini Gupta</a>.</span>
+        <span class="text-muted"><strong>&copy Incognito </strong>- Made with <strong style="color:red">&hearts;</strong> by <a target="_blank" href="https://twitter.com/fnlsg">Ashwini Gupta</a></span>
     </footer>
 
     <environment include="Development">
