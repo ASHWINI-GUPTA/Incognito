@@ -1,0 +1,5 @@
+﻿@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <li><a asp-area="" asp-controller="" asp-action="">Admin</a></li>
+    <li><a asp-area="" asp-controller="" asp-action="">Settings</a></li>
+}

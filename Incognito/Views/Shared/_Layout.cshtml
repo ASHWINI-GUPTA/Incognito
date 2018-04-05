@@ -34,6 +34,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @await Html.PartialAsync("_LinkPartial")
+                @await Html.PartialAsync("_LinkMemberPartial")
+                @await Html.PartialAsync("_LinkModeratorPartial")
+                @await Html.PartialAsync("_LinkAdminPartial")
             </ul>
             @await Html.PartialAsync("_LoginPartial")
         </div>
