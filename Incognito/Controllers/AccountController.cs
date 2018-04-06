@@ -227,6 +227,9 @@ namespace Incognito.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    // Add a user to the default role, or any role you prefer here
+                    await _userManager.AddToRoleAsync(user, "Member");
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
