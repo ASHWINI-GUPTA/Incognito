@@ -59,7 +59,7 @@ namespace Incognito.Controllers
                 {
                     RecevierId =viewModel.ReceiverId,
                     Text = viewModel.Text,
-                    SentTime = DateTime.Now,
+                    SentTime = DateTime.UtcNow,
                 };
                 if (senderId == null)
                 {
