@@ -4,33 +4,45 @@
 }
 
 <div class="row">
-    <div class="col col-md-4 d-flex justify-content-center" style="padding-bottom:25px;">
-        <div class="card" style=" width:256px;">
-            <img class="card-img-top" src="~/images/Ashwini.jpeg" alt="Card image cap" style="height:256px;">
-            <div class="card-body">
-                <h3 class="card-title">
-                    @ViewData["User"]
-                </h3>
-                <p class="card-text">Write some description here...</p>
+    <div class="col-lg-4">
+        <div class="card card-profile">
+            <div class="card-header"></div>
+            <div class="card-body text-center">
+                <img class="card-profile-img" src="~/images/Ashwini.jpeg">
+                <h3 class="mb-3">@ViewData["User"]</h3>
+                <p class="mb-4">
+                    Software Developer
+                </p>
+                <ul class="social-links list-inline ">
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0)" class="btn btn-outline-primary btn-sm" title="" data-toggle="tooltip" data-original-title="Twitter"><i class="fab fa-twitter"></i> Follow</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" title="" data-toggle="tooltip" data-original-title="Instagram"><i class="fab fa-instagram"></i> Follow</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+    <div class="col-lg-8">
+        <div class="card text-center"   >
+            <h5 class="card-header">Leave your message below.</h5>
+            <div class="card-body">
+                @{
+                    var receiverId = ViewData["receiverId"];
+                }
 
-    <div class="col col-md-7 text-center">
-        <p class="lead">Leave your message below.</p>
-        @{
-        var receiverId = ViewData["receiverId"];
-        }
-
-        <form asp-controller="Public" asp-action="Index">
-            <input type="hidden" asp-for="@receiverId" />
-            <div class="form-group">
-                <textarea asp-for="Text" class="form-control"></textarea>
-                <span asp-validation-for="Text" class="text-danger"></span>
+                <form asp-controller="Public" asp-action="Index">
+                    <input type="hidden" asp-for="@receiverId" />
+                    <div class="form-group">
+                        <textarea asp-for="Text" class="form-control"></textarea>
+                        <span asp-validation-for="Text" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
