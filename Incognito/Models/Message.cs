@@ -38,5 +38,14 @@ namespace Incognito.Models
         public DateTime SentTime { get; set; }
 
         //public List<MessageCategory> MessageCategories { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public bool IsArchived { get; set; }
+
+        public bool IsReported { get; set; }
+
+        [MaxLength(1000)]
+        public string ReportReason { get; set; }
     }
 }
