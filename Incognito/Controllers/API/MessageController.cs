@@ -39,7 +39,15 @@ namespace Incognito.Controllers.API
             var userId = _userManager.GetUserId(User);
             var message = _messageContext.Messages
                 .Single(c => c.Id == id && c.RecevierId == userId);
-            message.IsArchived = true;
+
+            if (message.IsArchived == false)
+            {
+                message.IsArchived = true;
+            }
+            else
+            {
+                message.IsArchived = false;
+            }
             _messageContext.SaveChanges();
 
             return Ok();

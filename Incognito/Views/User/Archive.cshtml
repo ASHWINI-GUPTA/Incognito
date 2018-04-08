@@ -1,64 +1,50 @@
 ﻿@model IEnumerable<Incognito.Models.Message>
-@using Incognito.Models
 
 @{
-    ViewData["Title"] = @ViewData["User"] + " Messages";
+    ViewData["Title"] = @ViewData["User"] + " Archives";
 }
 
 <div class="row">
     <div class="col-lg-4" style="padding-bottom:25px;">
-        <div class="card card-profile">
-            <div class="card-header"></div>
-            <div class="card-body text-center">
-                <img class="card-profile-img" src="~/images/Ashwini.jpeg">
-                <h3 class="mb-3">@ViewData["User"]</h3>
-                <p class="mb-4">
-                    Software Developer
-                </p>
-            </div>
-        </div>
-
         @await Html.PartialAsync("_MessageLinkPartial")
     </div>
 
     <div class="col-lg-8">
-        <h3>Messages</h3>
+        <h3>Archives</h3>
         <hr />
         @if (Model.Count() > 0)
         {
-        <ul class="list-group card-list-group">
-            @foreach (var item in Model)
-            {
-                <li class="list-group-item py-4">
-                    <div class="media">
-                        <div class="media-object avatar mr-3">
-                            <span>A</span>
-                        </div>
-                        <div class="media-body">
-                            <div class="media-heading">
-                                <small class="float-right text-muted">
-                                    <time class="timeago" datetime="@item.SentTime.ToLocalTime().ToString("o")"></time>
-                                </small>
-                                <h5>Anonymous</h5>
-                                <p>@item.Text</p>
+            <ul class="list-group card-list-group">
+                @foreach (var item in Model)
+                {
+                    <li class="list-group-item py-4">
+                        <div class="media">
+                            <div class="media-object avatar mr-3">
+                                <span>A</span>
                             </div>
-                            <div class="popup-action">
-                                <a asp-action="Details" asp-route-id="@item.Id" style="color:green">
-                                    <i class="far fa-flag"></i> Report
-                                </a>|
-                                <a href="#" class="js-archive-message" message-id="@item.Id">
-                                    <i class="fas fa-archive"></i> Archive
-                                </a>|
-                                <a href="#" class="js-delete-message" message-id="@item.Id" style="color:red">
-                                    <i class="far fa-trash-alt"></i> Delete
-                                </a>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <small class="float-right text-muted">
+                                        <time class="timeago" datetime="@item.SentTime.ToLocalTime().ToString("o")"></time>
+                                    </small>
+                                    <h5>Anonymous</h5>
+                                    <p>@item.Text</p>
+                                </div>
+                                <div class="popup-action">
+                                    <a href="#" class="js-archive-message" message-id="@item.Id">
+                                        <i class="fas fa-reply-all"></i> Unarchive
+                                    </a>|
+                                    <a href="#" class="js-delete-message" message-id="@item.Id" style="color:red">
+                                        <i class="far fa-trash-alt"></i> Delete
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            }
-        </ul>
-        } else
+                    </li>
+                }
+            </ul>
+        }
+        else
         {
             <p>There is nothing to display.</p>
         }
