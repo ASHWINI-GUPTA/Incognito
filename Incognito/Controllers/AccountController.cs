@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Incognito.Models;
 using Incognito.Models.AccountViewModels;
 using Incognito.Services;
+using Incognito.Data;
 
 namespace Incognito.Controllers
 {
@@ -24,17 +25,20 @@ namespace Incognito.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ApplicationUserDbContext _userContext;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationUserDbContext userContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _userContext = userContext;
         }
 
         [TempData]
@@ -220,7 +224,7 @@ namespace Incognito.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email,
+                var user = new ApplicationUser { UserName = model.UserName.ToLower(), Email = model.Email,
                                                 FirstName = model.FirstName, LastName = model.LastName};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -461,6 +465,26 @@ namespace Incognito.Controllers
             {
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult UsernameExists(string username)
+        {
+            var userFound = _userContext.Users
+                .FirstOrDefault(u => u.UserName == username.ToLower());
+            
+            return Json(userFound == null);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult EmailExists(string email)
+        {
+            var userFound = _userContext.Users
+                .FirstOrDefault(u => u.Email == email);
+
+            return Json(userFound == null);
         }
 
         #endregion

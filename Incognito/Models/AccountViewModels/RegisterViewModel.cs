@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,11 +21,14 @@ namespace Incognito.Models.AccountViewModels
         [Required]
         [MaxLength(240)]
         [Display(Name = "Username")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Username must be combination of letters and numbers only.")]
+        [Remote("UsernameExists", "Account", HttpMethod = "POST", ErrorMessage = "Username already registered.")]
         public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [Remote("EmailExists", "Account", HttpMethod = "POST", ErrorMessage = "Email address already registered.")]
         public string Email { get; set; }
 
         [Required]
