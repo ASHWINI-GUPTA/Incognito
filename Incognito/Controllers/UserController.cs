@@ -35,6 +35,7 @@ namespace Incognito.Controllers
 
             var userMassages = await _messageContext.Messages
                 .Where(u => u.RecevierId == userId)
+                .OrderByDescending(d => d.SentTime)
                 .ToListAsync();
 
             return View(userMassages);
