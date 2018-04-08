@@ -2,7 +2,7 @@
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 60px;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -83,4 +83,59 @@
 
 .mb-4 {
     margin-bottom: 1rem !important;
+}
+
+/*message card*/
+.list-group {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-left: 0;
+    /*margin-bottom: 1px;*/
+}
+
+.list-group-item {
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.media {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+    .media .popup-action {
+        
+        font-size: 14px;
+        display: none;
+    }
+
+    .media .popup-action a {
+        text-decoration: none;
+    }
+    .media:hover .popup-action {
+        
+        display: block;
+    }
+
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    display: inline-block;
+    background: #ced4da no-repeat center/cover;
+    position: relative;
+    text-align: center;
+    color: #868e96;
+    font-weight: 600;
+    vertical-align: bottom;
+    font-size: .875rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
