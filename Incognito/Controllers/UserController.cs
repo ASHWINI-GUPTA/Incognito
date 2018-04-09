@@ -33,12 +33,25 @@ namespace Incognito.Controllers
             var userId = _userManager.GetUserId(User);
             ViewData["User"] = $"{user.FirstName} {user.LastName}";
 
-            var userMassages = await _messageContext.Messages
-                .Where(u => u.RecevierId == userId)
+            var userMessages = await _messageContext.Messages
+                .Where(u => u.RecevierId == userId && !u.IsDeleted && !u.IsArchived)
                 .OrderByDescending(d => d.SentTime)
                 .ToListAsync();
 
-            return View(userMassages);
+            return View(userMessages);
+        }
+
+        //Archive Page
+        public async Task<IActionResult> Archive()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var userArchivedMessages = await _messageContext.Messages
+                .Where(u => u.RecevierId == userId && u.IsArchived)
+                .OrderByDescending(d => d.SentTime)
+                .ToListAsync();
+
+            return View(userArchivedMessages);
         }
 
         //Get current logged in user's identifier
