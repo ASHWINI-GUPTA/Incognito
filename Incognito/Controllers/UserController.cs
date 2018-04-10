@@ -1,5 +1,6 @@
 ﻿using Incognito.Data;
 using Incognito.Models;
+using Incognito.Models.ProfileViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,17 @@ namespace Incognito.Controllers
                 .OrderByDescending(d => d.SentTime)
                 .ToListAsync();
 
-            return View(userMessages);
+            var profile = _userContext.Profiles
+                .Include(u => u.User)
+                .Single(u => u.UserId == userId);
+
+            var viewModel = new UserViewModel
+            {
+                Messages = userMessages,
+                Profile = profile
+            };
+
+            return View(viewModel);
         }
 
         //Archive Page

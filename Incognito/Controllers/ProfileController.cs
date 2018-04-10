@@ -1,6 +1,5 @@
 ﻿using Incognito.Data;
 using Incognito.Models;
-using Incognito.Models.ProfileViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -26,7 +25,7 @@ namespace Incognito.Controllers
             var userId = _userManager.GetUserId(User);
             var profile = _userContext.Profiles
                             .Include(u => u.User)
-                            .SingleOrDefault(u => u.UserId == userId);
+                            .Single(u => u.UserId == userId);
 
             return View(profile);
         }
