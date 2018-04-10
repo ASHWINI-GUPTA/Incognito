@@ -1,0 +1,93 @@
+﻿@model Incognito.Models.Profile
+
+@{
+    ViewData["Title"] = " Profile";
+}
+
+<div class="row">
+    <div class="col-lg-4" style="padding-bottom:25px;">
+        <div class="card card-profile">
+            <div class="card-header"></div>
+            <div class="card-body text-center">
+                @*<img class="card-profile-img" src="~/images/Ashwini.jpeg">*@
+                <span class="avatar-main">@Model.GetProfilePic()</span>
+                <h3 class="mb-3">@Model.GetFullName()</h3>
+                <p class="mb-4">
+                    Software Developer
+                </p>
+            </div>
+        </div>
+
+        @*@await Html.PartialAsync("_MessageLinkPartial")*@
+    </div>
+
+    <div class="col-lg-8">
+        <form class="card" asp-controller="Profile" asp-action="Index">
+            <div class="card-body">
+                <h3 class="card-title">Edit Profile</h3>
+                <hr />
+                <div class="row">
+                    <input type="hidden" asp-for="Id" />
+
+                    @if (ViewData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewData["Error"]
+                        </div>
+                    }
+
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <input class="form-control" disabled placeholder="Username" value="@Model.User.UserName">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <div class="form-group">
+                            <label class="form-label">Email address</label>
+                            <input class="form-control" disabled placeholder="Email" value="@Model.User.Email">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input asp-for="User.FirstName" class="form-control" placeholder="Company" value="@Model.User.FirstName">
+                            <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input asp-for="User.LastName" class="form-control" placeholder="Last Name" value="@Model.User.LastName">
+                            <span asp-validation-for="User.LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Company</label>
+                            <input asp-for="CompanyName" class="form-control" placeholder="Company" value="@Model.CompanyName">
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Job Title</label>
+                            <input asp-for="JobTitle" class="form-control" placeholder="Job" value="@Model.JobTitle">
+                            <span asp-validation-for="JobTitle" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-0">
+                            <label class="form-label">After Words</label>
+                            <textarea asp-for="AfterWords" rows="5" class="form-control" placeholder="This message is shown to the sender." value="@Model.AfterWords"></textarea>
+                            <span asp-validation-for="AfterWords" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </div>
+        </form>
+    </div>
+</div>
