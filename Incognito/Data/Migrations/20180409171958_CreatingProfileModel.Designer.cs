@@ -11,9 +11,10 @@ using System;
 namespace Incognito.Data.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180409171958_CreatingProfileModel")]
+    partial class CreatingProfileModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
