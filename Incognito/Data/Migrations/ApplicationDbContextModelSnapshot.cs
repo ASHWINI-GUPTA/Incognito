@@ -8,7 +8,7 @@ using System;
 
 namespace Incognito.Data.Migrations
 {
-    [DbContext(typeof(ApplicationUserDbContext))]
+    [DbContext(typeof(UserContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

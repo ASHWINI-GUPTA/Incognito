@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Incognito.Data.Migrations
 {
-    [DbContext(typeof(ApplicationUserDbContext))]
+    [DbContext(typeof(UserContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

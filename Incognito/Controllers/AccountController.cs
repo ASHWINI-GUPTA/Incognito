@@ -25,14 +25,14 @@ namespace Incognito.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
-        private readonly ApplicationUserDbContext _userContext;
+        private readonly UserContext _userContext;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
-            ApplicationUserDbContext userContext)
+            UserContext userContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;

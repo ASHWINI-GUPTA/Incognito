@@ -8,9 +8,9 @@ using Incognito.Models;
 
 namespace Incognito.Data
 {
-    public class ApplicationUserDbContext : IdentityDbContext<ApplicationUser>
+    public class UserContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationUserDbContext(DbContextOptions<ApplicationUserDbContext> options)
+        public UserContext(DbContextOptions<UserContext> options)
             : base(options)
         {
         }

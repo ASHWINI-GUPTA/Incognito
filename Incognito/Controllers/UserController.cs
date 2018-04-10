@@ -12,12 +12,12 @@ namespace Incognito.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private ApplicationUserDbContext _userContext;
+        private UserContext _userContext;
         private MessageContext _messageContext;
         private UserManager<ApplicationUser> _userManager;
 
         public UserController(
-            ApplicationUserDbContext userContext,
+            UserContext userContext,
             MessageContext messageContext,
             UserManager<ApplicationUser> userManager)
         {

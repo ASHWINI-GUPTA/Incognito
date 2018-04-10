@@ -10,7 +10,7 @@ using System;
 
 namespace Incognito.Data.Migrations
 {
-    [DbContext(typeof(ApplicationUserDbContext))]
+    [DbContext(typeof(UserContext))]
     [Migration("20180323080404_AddingNameFeildToApplicationUser")]
     partial class AddingNameFeildToApplicationUser
     {
