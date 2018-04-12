@@ -14,7 +14,8 @@ namespace Incognito.Data
             //adding customs roles
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Admin", "Member" };
+
+            string[] roleNames = { "Admin", "Member", "Moderator" };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
@@ -27,25 +28,65 @@ namespace Incognito.Data
                 }
             }
 
-            //creating a super user who could maintain the web app
-            var poweruser = new ApplicationUser
+            //creating a Admin who could maintain the web app
+            var adminUser = new ApplicationUser
             {
-                UserName = Configuration.GetSection("AppSettings")["UserName"],
-                Email = Configuration.GetSection("AppSettings")["UserEmail"]
+                FirstName = Configuration.GetSection("AppSettings")["AdminUser:FirstName"],
+                UserName = Configuration.GetSection("AppSettings")["AdminUser:UserName"],
+                Email = Configuration.GetSection("AppSettings")["AdminUser:UserEmail"]
             };
 
-            string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-            var user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
+            //var adminProfile = new Profile
+            //{
+            //    UserId = adminUser.Id
+            //};
 
-            if (user == null)
+            ////creating a Moderator who can review report messages
+            //var modUser = new ApplicationUser
+            //{
+            //    FirstName = Configuration.GetSection("AppSettings")["ModUser:FirstName"],
+            //    UserName = Configuration.GetSection("AppSettings")["ModUser:UserName"],
+            //    Email = Configuration.GetSection("AppSettings")["ModUser:UserEmail"]
+            //};
+
+            //var modProfile = new Profile
+            //{
+            //    UserId = modUser.Id
+            //};
+
+            string adminUserPassword = Configuration.GetSection("AppSettings")["AdminUser:UserPassword"];
+            var adminUserCheck = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["AdminUser:UserEmail"]);
+
+            //string modUserPassword = Configuration.GetSection("AppSettings")["ModUser:UserPassword"];
+            //var modUserCheck = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["ModUser:UserEmail"]);
+
+            if (adminUserCheck == null)
             {
-                var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
+                var createPowerUser = await UserManager.CreateAsync(adminUser, adminUserPassword);
                 if (createPowerUser.Succeeded)
                 {
                     //here we tie the new user to the "Admin" role 
-                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+                    await UserManager.AddToRoleAsync(adminUser, "Admin");
+
+                    //here we create Profile for the user
+                    //userContext.Add(adminProfile);
+                    //await userContext.SaveChangesAsync();
                 }
             }
+
+            //if (modUserCheck == null)
+            //{
+            //    var modUserCreate = await UserManager.CreateAsync(adminUser, adminUserPassword);
+            //    if (modUserCreate.Succeeded)
+            //    {
+            //        //here we tie the new user to the "Moderator" role 
+            //        await UserManager.AddToRoleAsync(modUser, "Moderator");
+
+            //        //here we create Profile for the user
+            //        userContext.Add(modProfile);
+            //        await userContext.SaveChangesAsync();
+            //    }
+            //}
         }
     }
 }
