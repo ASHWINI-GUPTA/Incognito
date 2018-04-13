@@ -23,7 +23,7 @@
     <div class="col-lg-8">
         <h3>Messages</h3>
         <hr />
-        @if (Model.Messages.Count() > 0)
+        @if (Model.Messages.Any())
         {
         <ul class="list-group card-list-group">
             @foreach (var item in Model.Messages)
@@ -31,7 +31,7 @@
                 <li class="list-group-item py-4">
                     <div class="media">
                         <div class="media-object avatar mr-3">
-                            <span>A</span>
+                            <span><i class="fas fa-user-secret"></i></span>
                         </div>
                         <div class="media-body">
                             <div class="media-heading">
