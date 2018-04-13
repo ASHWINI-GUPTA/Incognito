@@ -13,12 +13,12 @@
                 <span class="avatar-main">@Model.GetProfilePic()</span>
                 <h3 class="mb-3">@Model.GetFullName()</h3>
                 <p class="mb-4">
-                    Software Developer
+                    @Model.CompanyName
                 </p>
             </div>
         </div>
 
-        @*@await Html.PartialAsync("_MessageLinkPartial")*@
+        @await Html.PartialAsync("_ProfileLinkPartial")
     </div>
 
     <div class="col-lg-8">
@@ -27,15 +27,6 @@
                 <h3 class="card-title">Edit Profile</h3>
                 <hr />
                 <div class="row">
-                    <input type="hidden" asp-for="Id" />
-
-                    @if (ViewData["Error"] != null)
-                    {
-                        <div class="alert alert-danger">
-                            @ViewData["Error"]
-                        </div>
-                    }
-
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Username</label>
