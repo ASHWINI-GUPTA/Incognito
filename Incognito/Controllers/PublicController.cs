@@ -34,10 +34,16 @@ namespace Incognito.Controllers
 
             if (userFound != null)
             {
+                var profile = _userContext.Profiles
+                    .FirstOrDefault(p => p.UserId == userFound.Id);
+
                 var userId = userFound.Id;
                 var userName = $"{userFound.FirstName} {userFound.LastName}";
                 ViewData["User"] = userName;
                 ViewData["receiverId"] = userId;
+                ViewData["Twitter"] = profile.Twitter;
+                ViewData["Company"] = profile.CompanyName;
+                ViewData["Profile"] = $"{userFound.FirstName[0]}{userFound.LastName[0]}";
 
                 return View();
             }

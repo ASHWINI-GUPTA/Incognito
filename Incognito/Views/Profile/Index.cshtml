@@ -67,6 +67,24 @@
                             <span asp-validation-for="JobTitle" class="text-danger"></span>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Twitter Handle</label>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-twitter"></i></div>
+                            </div>
+                            <input asp-for="Twitter" class="form-control" placeholder="fnlsg" value="@Model.Twitter">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Instagram</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fab fa-instagram"></i></div>
+                            </div>
+                            <input disabled class="form-control" placeholder="Not implimented yet.." value="">
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group mb-0">
                             <label class="form-label">After Words</label>
