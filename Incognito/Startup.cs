@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Incognito.Data;
 using Incognito.Models;
 using Incognito.Services;
+using AutoMapper;
 
 namespace Incognito
 {
@@ -40,6 +41,8 @@ namespace Incognito
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddAutoMapper();
 
             services.AddAuthorization(options => 
             {
