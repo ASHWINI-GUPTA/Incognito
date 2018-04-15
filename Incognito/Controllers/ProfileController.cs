@@ -11,19 +11,24 @@ namespace Incognito.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly UserContext _userContext;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserContext userContext;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserRepository userRepository;
 
-        public ProfileController(UserContext userContext, UserManager<ApplicationUser> userManager)
+        public ProfileController(
+            UserContext userContext,
+            UserManager<ApplicationUser> userManager,
+            IUserRepository userRepository)
         {
-            _userContext = userContext;
-            _userManager = userManager;
+            this.userContext = userContext;
+            this.userManager = userManager;
+            this.userRepository = userRepository;
         }
 
         public IActionResult Index()
         {
-            var userId = _userManager.GetUserId(User);
-            var profile = _userContext.Profiles
+            var userId = userManager.GetUserId(User);
+            var profile = userContext.Profiles
                             .Include(u => u.User)
                             .Single(u => u.UserId == userId);
 
@@ -31,14 +36,14 @@ namespace Incognito.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(int Id, Profile profile)
+        public async Task<IActionResult> Index(int Id, UserProfile profile)
         {
-            var currentUserId = _userManager.GetUserId(User);
+            var currentUserId = userManager.GetUserId(User);
 
-            var profileToUpdate = _userContext.Profiles
+            var profileToUpdate = userContext.Profiles
                 .Single(c => c.UserId == currentUserId);
 
-            var userToUpdate = _userContext.Users
+            var userToUpdate = userContext.Users
                 .Single(c => c.Id == profileToUpdate.UserId);
 
             if (userToUpdate.Id != currentUserId)
@@ -57,10 +62,10 @@ namespace Incognito.Controllers
                 profileToUpdate.Twitter = profile.Twitter;
 
 
-                _userContext.Update(userToUpdate);
-                _userContext.Update(profileToUpdate);
+                userContext.Update(userToUpdate);
+                userContext.Update(profileToUpdate);
 
-                await _userContext.SaveChangesAsync();
+                await userContext.SaveChangesAsync();
 
                 return RedirectToAction("Index", new RouteValueDictionary(
                         new { controller = "User", action = "Index" }));

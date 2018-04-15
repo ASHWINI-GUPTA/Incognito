@@ -23,6 +23,6 @@ namespace Incognito.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<UserProfile> Profiles { get; set; }
     }
 }

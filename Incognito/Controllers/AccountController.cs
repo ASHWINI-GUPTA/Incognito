@@ -234,7 +234,7 @@ namespace Incognito.Controllers
                     // Add a user to the default role, or any role you prefer here
                     await _userManager.AddToRoleAsync(user, "Member");
 
-                    var profile = new Profile
+                    var profile = new UserProfile
                     {
                         UserId = user.Id
                     };
