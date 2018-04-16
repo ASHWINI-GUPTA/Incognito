@@ -1,10 +1,10 @@
-﻿@model Incognito.Models.MessageViewModel.MessageViewModel
+﻿@model Incognito.Models.ProfileViewModel.PublicVM
 @{
     ViewBag.Title = @ViewData["User"] + " Profile";
 }
 
-@{  
-    var twittername = @ViewData["Twitter"];
+@{
+    var twittername = Model.PublicProfile.Twitter;
     var twitter = $"https://twitter.com/{twittername}";
 }
 
@@ -13,10 +13,10 @@
         <div class="card card-profile">
             <div class="card-header"></div>
             <div class="card-body text-center">
-                <span class="avatar-main">@ViewData["Profile"]</span>
-                <h3 class="mb-3">@ViewData["User"]</h3>
+                <span class="avatar-main">@Model.PublicProfile.GetProfilePic()</span>
+                <h3 class="mb-3">@Model.PublicProfile.GetFullName()</h3>
                 <p class="mb-4">
-                    @ViewData["Company"]
+                    @Model.PublicProfile.CompanyName
                 </p>
                 <ul class="social-links list-inline ">
                     @if (twittername != null)
@@ -26,14 +26,14 @@
                         </li>
                     }
                     @*<li class="list-inline-item">
-                        <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" title="" data-toggle="tooltip" data-original-title="Instagram"><i class="fab fa-instagram"></i> Follow</a>
-                    </li>*@
+                            <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" title="" data-toggle="tooltip" data-original-title="Instagram"><i class="fab fa-instagram"></i> Follow</a>
+                        </li>*@
                 </ul>
             </div>
         </div>
     </div>
     <div class="col-lg-8">
-        <div class="card text-center"   >
+        <div class="card text-center">
             <h5 class="card-header">Leave your message below.</h5>
             <div class="card-body">
                 @{
@@ -41,10 +41,10 @@
                 }
 
                 <form asp-controller="Public" asp-action="Index">
-                    <input type="hidden" asp-for="@receiverId" />
+                    <input type="hidden" asp-for="PublicMessage.ReceiverId" />
                     <div class="form-group">
-                        <textarea asp-for="Text" class="form-control"></textarea>
-                        <span asp-validation-for="Text" class="text-danger"></span>
+                        <textarea asp-for="PublicMessage.Text" rows="6" class="form-control"></textarea>
+                        <span asp-validation-for="PublicMessage.Text" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>

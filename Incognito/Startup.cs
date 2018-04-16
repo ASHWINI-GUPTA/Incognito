@@ -39,6 +39,7 @@ namespace Incognito
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddMvc();
 

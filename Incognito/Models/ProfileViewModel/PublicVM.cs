@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Incognito.Models.MessageViewModel;
 
 namespace Incognito.Models.ProfileViewModel
 {
-    public class UserViewModel
+    public class PublicVM
     {
-        public IEnumerable<Message> Messages { get; set; }
+        public MessageVM PublicMessage { get; set; }
 
-        public UserProfile Profile { get; set; }
+        public UserProfile PublicProfile { get; set; }
     }
 }

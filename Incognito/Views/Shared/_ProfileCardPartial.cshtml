@@ -1,0 +1,13 @@
+﻿<div class="card card-profile">
+    <div class="card-header"></div>
+    <div class="card-body text-center">
+        @*<img class="card-profile-img" src="~/images/Ashwini.jpeg">*@
+        <span class="avatar-main">@Model.GetProfilePic()</span>
+        <h3 class="mb-3">
+            @Model.GetFullName()
+        </h3>
+        <h4 class="mb-4" style="color:gray">
+            @Model.CompanyName
+        </h4>
+    </div>
+</div>
