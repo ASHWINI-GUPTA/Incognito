@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Incognito.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Incognito.Data
 {
     public interface IUserRepository
     {
-        
+        bool CheckUserExist(string username);
+
+        UserProfile GetUserByUsername(string username);
+
+        UserProfile GetUserById(string userId);
+
+        IEnumerable<ApplicationUser> GetAllUser();
     }
 }
