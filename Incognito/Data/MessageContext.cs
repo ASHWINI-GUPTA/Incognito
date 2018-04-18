@@ -11,5 +11,7 @@ namespace Incognito.Data
         }
 
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<ReportMessage> ReportMessages { get; set; }
     }
 }
