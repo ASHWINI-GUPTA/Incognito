@@ -1,75 +1,94 @@
-﻿using Incognito.Data;
+﻿using AutoMapper;
+using Incognito.Data;
 using Incognito.Models;
+using Incognito.Models.ProfileViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Incognito.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly UserContext userContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserRepository userRepository;
+        private readonly IMapper mapper;
 
         public ProfileController(
             UserContext userContext,
             UserManager<ApplicationUser> userManager,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IMapper mapper)
         {
             this.userContext = userContext;
             this.userManager = userManager;
             this.userRepository = userRepository;
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
         {
+            //TODO: make an new view model and assign User to that.
             var userId = userManager.GetUserId(User);
-            var profile = userContext.Profiles
-                            .Include(u => u.User)
-                            .Single(u => u.UserId == userId);
+            var user = userRepository.GetUserById(userId);
 
-            return View(profile);
+            var service = new ProfileCardService
+            {
+                FirstName = user.User.FirstName,
+                LastName = user.User.LastName,
+                Company = user.CompanyName
+            };
+
+            var model = new UserProfileVM
+            {
+                UserName = user.User.UserName,
+                Email = user.User.Email,
+                FirstName = user.User.FirstName,
+                LastName = user.User.LastName,
+                Twitter = user.Twitter,
+                CompanyName = user.CompanyName,
+                JobTitle = user.JobTitle,
+                AfterWords = user.AfterWords
+            };
+
+            var viewmodel = new ProfileVM
+            {
+                UserProfileVM = model,
+                ProfileCardService = service
+            };
+
+            return View(viewmodel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(int Id, UserProfile profile)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(ProfileVM profile)
         {
-            var currentUserId = userManager.GetUserId(User);
+            var user = userRepository.GetUserById(userManager.GetUserId(User));
 
-            var profileToUpdate = userContext.Profiles
-                .Single(c => c.UserId == currentUserId);
+            if (user.UserId != userManager.GetUserId(User)) return BadRequest();
 
-            var userToUpdate = userContext.Users
-                .Single(c => c.Id == profileToUpdate.UserId);
-
-            if (userToUpdate.Id != currentUserId)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid) return View(profile);
 
             try
             {
-                userToUpdate.FirstName = profile.User.FirstName;
-                userToUpdate.LastName = profile.User.LastName;
+                user.User.FirstName = profile.UserProfileVM.FirstName;
+                user.User.LastName = profile.UserProfileVM.LastName;
 
-                profileToUpdate.CompanyName = profile.CompanyName;
-                profileToUpdate.JobTitle = profile.JobTitle;
-                profileToUpdate.AfterWords = profile.AfterWords;
-                profileToUpdate.Twitter = profile.Twitter;
+                user.CompanyName = profile.UserProfileVM.CompanyName;
+                user.JobTitle = profile.UserProfileVM.JobTitle;
+                user.AfterWords = profile.UserProfileVM.AfterWords;
+                user.Twitter = profile.UserProfileVM.Twitter;
 
-
-                userContext.Update(userToUpdate);
-                userContext.Update(profileToUpdate);
-
+                userContext.Update(user);
                 await userContext.SaveChangesAsync();
 
                 return RedirectToAction("Index", new RouteValueDictionary(
                         new { controller = "User", action = "Index" }));
-
             }
             catch
             {

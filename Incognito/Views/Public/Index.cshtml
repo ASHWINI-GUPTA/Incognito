@@ -3,34 +3,9 @@
     ViewBag.Title = @ViewData["User"] + " Profile";
 }
 
-@{
-    var twittername = Model.PublicProfile.Twitter;
-    var twitter = $"https://twitter.com/{twittername}";
-}
-
 <div class="row">
     <div class="col-lg-4">
-        <div class="card card-profile">
-            <div class="card-header"></div>
-            <div class="card-body text-center">
-                <span class="avatar-main">@Model.PublicProfile.GetProfilePic()</span>
-                <h3 class="mb-3">@Model.PublicProfile.GetFullName()</h3>
-                <p class="mb-4">
-                    @Model.PublicProfile.CompanyName
-                </p>
-                <ul class="social-links list-inline ">
-                    @if (twittername != null)
-                    {
-                        <li class="list-inline-item">
-                            <a href="@twitter" class="btn btn-outline-primary btn-sm" title="" data-toggle="tooltip" data-original-title="Twitter"><i class="fab fa-twitter"></i> Follow</a>
-                        </li>
-                    }
-                    @*<li class="list-inline-item">
-                            <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" title="" data-toggle="tooltip" data-original-title="Instagram"><i class="fab fa-instagram"></i> Follow</a>
-                        </li>*@
-                </ul>
-            </div>
-        </div>
+        @await Html.PartialAsync("_ProfileCardPartial")
     </div>
     <div class="col-lg-8">
         <div class="card text-center">
@@ -54,3 +29,8 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

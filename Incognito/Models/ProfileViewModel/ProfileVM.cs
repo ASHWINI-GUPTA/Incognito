@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Incognito.Models.ProfileViewModel
 {
-    public class UserViewModel
+    public class ProfileVM
     {
-        public IEnumerable<Message> Messages { get; set; }
+        public UserProfileVM UserProfileVM { get; set; }
 
         public ProfileCardService ProfileCardService { get; set; }
     }

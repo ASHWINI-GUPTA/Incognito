@@ -11,6 +11,7 @@ namespace Incognito.Models.ProfileViewModel
     {
         public MessageVM PublicMessage { get; set; }
 
-        public UserProfile PublicProfile { get; set; }
+        //public UserProfile PublicProfile { get; set; }
+        public ProfileCardService ProfileCardService { get; set; }
     }
 }

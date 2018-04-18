@@ -13,60 +13,51 @@ namespace Incognito.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private UserContext _userContext;
-        private MessageContext _messageContext;
-        private UserManager<ApplicationUser> _userManager;
+        private UserManager<ApplicationUser> userManager;
+        private readonly IMessageRepository messageRepository;
+        private readonly IUserRepository userRepository;
 
         public UserController(
-            UserContext userContext,
-            MessageContext messageContext,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IMessageRepository messageRepository,
+            IUserRepository userRepository)
         {
-            _userContext = userContext;
-            _messageContext = messageContext;
-            _userManager = userManager;
+            this.userManager = userManager;
+            this.messageRepository = messageRepository;
+            this.userRepository = userRepository;
         }
 
         //Index Page
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            ApplicationUser user = await GetCurrentUserAsync();
-            var userId = _userManager.GetUserId(User);
-            ViewData["User"] = $"{user.FirstName} {user.LastName}";
+            var userId = userManager.GetUserId(User);
+            var card = userRepository.GetUserById(userId);
 
-            var userMessages = await _messageContext.Messages
-                .Where(u => u.RecevierId == userId && !u.IsDeleted && !u.IsArchived)
-                .OrderByDescending(d => d.SentTime)
-                .ToListAsync();
-
-            var profile = _userContext.Profiles
-                .Include(u => u.User)
-                .Single(u => u.UserId == userId);
+            var profile = new ProfileCardService
+            {
+                FirstName = card.User.FirstName,
+                LastName = card.User.LastName,
+                Company = card.CompanyName
+            };
 
             var viewModel = new UserViewModel
             {
-                Messages = userMessages,
-                Profile = profile
+                Messages = messageRepository.GetUserMessages(userId),
+                ProfileCardService  = profile
+                
             };
-
             return View(viewModel);
         }
 
         //Archive Page
-        public async Task<IActionResult> Archive()
+        public IActionResult Archive()
         {
-            var userId = _userManager.GetUserId(User);
-
-            var userArchivedMessages = await _messageContext.Messages
-                .Where(u => u.RecevierId == userId && u.IsArchived)
-                .OrderByDescending(d => d.SentTime)
-                .ToListAsync();
-
-            return View(userArchivedMessages);
+            var userId = userManager.GetUserId(User);
+            return View(messageRepository.GetUserArchives(userId));
         }
 
         //Get current logged in user's identifier
-        private Task<ApplicationUser> GetCurrentUserAsync() => 
-            _userManager.GetUserAsync(HttpContext.User);
+        private Task<ApplicationUser> GetCurrentUserAsync() =>
+            userManager.GetUserAsync(HttpContext.User);
     }
 }

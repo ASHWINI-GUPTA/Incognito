@@ -1,4 +1,4 @@
-﻿@model Incognito.Models.UserProfile
+﻿@model Incognito.Models.ProfileViewModel.ProfileVM
 
 @{
     ViewData["Title"] = " Profile";
@@ -15,45 +15,46 @@
             <div class="card-body">
                 <h3 class="card-title">Edit Profile</h3>
                 <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Username</label>
-                            <input asp-for="User.UserName" class="form-control" disabled>
+                            <input asp-for="UserProfileVM.UserName" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-8">
                         <div class="form-group">
                             <label class="form-label">Email address</label>
-                            <input asp-for="User.Email" class="form-control" disabled>
+                            <input asp-for="UserProfileVM.Email" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
                             <label class="form-label">First Name</label>
-                            <input asp-for="User.FirstName" class="form-control" placeholder="First Name">
-                            <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                            <input asp-for="UserProfileVM.FirstName" class="form-control" placeholder="First Name">
+                            <span asp-validation-for="UserProfileVM.FirstName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
                             <label class="form-label">Last Name</label>
-                            <input asp-for="User.LastName" class="form-control" placeholder="Last Name">
-                            <span asp-validation-for="User.LastName" class="text-danger"></span>
+                            <input asp-for="UserProfileVM.LastName" class="form-control" placeholder="Last Name">
+                            <span asp-validation-for="UserProfileVM.LastName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Company</label>
-                            <input asp-for="CompanyName" class="form-control" placeholder="Company">
-                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                            <input asp-for="UserProfileVM.CompanyName" class="form-control" placeholder="Company">
+                            <span asp-validation-for="UserProfileVM.CompanyName" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Job Title</label>
-                            <input asp-for="JobTitle" class="form-control" placeholder="Job">
-                            <span asp-validation-for="JobTitle" class="text-danger"></span>
+                            <input asp-for="UserProfileVM.JobTitle" class="form-control" placeholder="Job">
+                            <span asp-validation-for="UserProfileVM.JobTitle" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -62,7 +63,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fab fa-twitter"></i></div>
                             </div>
-                            <input asp-for="Twitter" class="form-control" placeholder="fnlsg">
+                            <input asp-for="UserProfileVM.Twitter" class="form-control" placeholder="fnlsg">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -77,8 +78,8 @@
                     <div class="col-md-12">
                         <div class="form-group mb-0">
                             <label class="form-label">After Words</label>
-                            <textarea asp-for="AfterWords" rows="5" class="form-control" placeholder="This message is shown to the sender."></textarea>
-                            <span asp-validation-for="AfterWords" class="text-danger"></span>
+                            <textarea asp-for="UserProfileVM.AfterWords" rows="5" class="form-control" placeholder="This message is shown to the sender."></textarea>
+                            <span asp-validation-for="UserProfileVM.AfterWords" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -89,3 +90,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

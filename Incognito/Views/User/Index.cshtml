@@ -6,19 +6,7 @@
 
 <div class="row">
     <div class="col-lg-4" style="padding-bottom:25px;">
-        <div class="card card-profile">
-            <div class="card-header"></div>
-            <div class="card-body text-center">
-                <span class="avatar-main">@Model.Profile.GetProfilePic()</span>
-                <h3 class="mb-3">
-                    @Model.Profile.GetFullName()
-                </h3>
-                <h4 class="mb-4" style="color:gray">
-                    <i class="far fa-building"></i> @Model.Profile.CompanyName
-                </h4>
-            </div>
-        </div>
-
+        @await Html.PartialAsync("_ProfileCardPartial")
         @await Html.PartialAsync("_MessageLinkPartial")
     </div>
 

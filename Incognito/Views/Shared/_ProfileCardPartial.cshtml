@@ -1,13 +1,29 @@
-﻿<div class="card card-profile">
+﻿@{
+    var twittername = Model.ProfileCardService.Twitter;
+    var twitter = $"https://twitter.com/{twittername}";
+}
+
+<div class="card card-profile">
     <div class="card-header"></div>
     <div class="card-body text-center">
         @*<img class="card-profile-img" src="~/images/Ashwini.jpeg">*@
-        <span class="avatar-main">@Model.GetProfilePic()</span>
+        <span class="avatar-main">@Model.ProfileCardService.GetProfilePic()</span>
         <h3 class="mb-3">
-            @Model.GetFullName()
+            @Model.ProfileCardService.GetFullName()
         </h3>
         <h4 class="mb-4" style="color:gray">
-            @Model.CompanyName
+            <i class="far fa-building"></i> @Model.ProfileCardService.Company
         </h4>
+        @if (twittername != null)
+        {
+        <ul class="social-links list-inline ">
+            <li class="list-inline-item">
+                <a href="@twitter" class="btn btn-outline-primary btn-sm" title="" data-toggle="tooltip" data-original-title="Twitter"><i class="fab fa-twitter"></i> Follow</a>
+            </li>
+            @*<li class="list-inline-item">
+            <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" title="" data-toggle="tooltip" data-original-title="Instagram"><i class="fab fa-instagram"></i> Follow</a>
+            </li>*@
+        </ul>
+        }
     </div>
 </div>

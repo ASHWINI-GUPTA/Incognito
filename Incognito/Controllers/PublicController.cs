@@ -40,7 +40,7 @@ namespace Incognito.Controllers
             if (username == null) return RedirectToAction("About", new RouteValueDictionary(
                         new { controller = "Home", action = "About" }));
 
-            var userCheck = userRepository.UserExist(username);
+            var userCheck = userRepository.CheckUserExist(username);
 
             // Returning NotFound is no User found
             if (!userCheck) return RedirectToAction("UserNotFound", new RouteValueDictionary(
@@ -48,12 +48,21 @@ namespace Incognito.Controllers
 
             var user = userRepository.GetUserByUsername(username);
 
+            var profile = new ProfileCardService
+            {
+                FirstName = user.User.FirstName,
+                LastName = user.User.LastName,
+                Company = user.CompanyName,
+                Twitter = user.Twitter
+            };
+
             var viewModel = new PublicVM
             {
-                PublicProfile = mapper.Map<UserProfile>(user),
+                //PublicProfile = mapper.Map<UserProfile>(user),
                 PublicMessage = new MessageVM {
                     ReceiverId = user.UserId
                 },
+                ProfileCardService = profile
             };
 
             return View(viewModel);
