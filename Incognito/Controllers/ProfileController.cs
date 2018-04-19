@@ -32,16 +32,8 @@ namespace Incognito.Controllers
 
         public IActionResult Index()
         {
-            //TODO: make an new view model and assign User to that.
             var userId = userManager.GetUserId(User);
             var user = userRepository.GetUserById(userId);
-
-            var service = new ProfileCardService
-            {
-                FirstName = user.User.FirstName,
-                LastName = user.User.LastName,
-                Company = user.CompanyName
-            };
 
             var model = new UserProfileVM
             {
@@ -55,13 +47,11 @@ namespace Incognito.Controllers
                 AfterWords = user.AfterWords
             };
 
-            var viewmodel = new ProfileVM
+            return base.View(new ProfileVM
             {
                 UserProfileVM = model,
-                ProfileCardService = service
-            };
-
-            return View(viewmodel);
+                ProfileCardService = userRepository.GetCardService(userId)
+            });
         }
 
         [HttpPost]
@@ -92,7 +82,6 @@ namespace Incognito.Controllers
             }
             catch
             {
-                ViewData["Error"] = "Error occur while updating the database.";
                 return View(profile);
             }
         }

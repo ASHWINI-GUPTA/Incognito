@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -75,8 +71,6 @@ namespace Incognito
 
             app.UseMvc(routes =>
             {
-                //routes.Routes.Add(new SubdomainRouter(routes.DefaultHandler, "localhost:44368", "User", "Public"));
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=About}/{id?}");

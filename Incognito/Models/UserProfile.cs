@@ -4,7 +4,6 @@ namespace Incognito.Models
 {
     public class UserProfile
     {
-
         public int Id { get; set; }
 
         public ApplicationUser User { get; set; }
@@ -27,26 +26,5 @@ namespace Incognito.Models
         [MaxLength(500)]
         [Display(Name = "After Words")]
         public string AfterWords { get; set; }
-
-        public string GetFullName()
-        {
-            return $"{User.FirstName} {User.LastName}"; 
-        }
-
-        public string GetProfilePic()
-        {
-            var firstName = User.FirstName;
-            var lastName = User.LastName;
-            var profilePic = "";
-            if (lastName == null)
-            {
-                profilePic = $"{firstName[0]}{firstName[1]}";
-            }
-            else
-            {
-                profilePic = $"{firstName[0]}{lastName[0]}";
-            }
-            return profilePic.ToUpper();
-        }
     }
 }
