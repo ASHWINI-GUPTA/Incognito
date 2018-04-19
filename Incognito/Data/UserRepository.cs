@@ -41,5 +41,30 @@ namespace Incognito.Data
         {
             return userContext.Users.AsEnumerable();
         }
+
+        public ProfileCardService GetCardService(string userId)
+        {
+            var card = GetUserById(userId);
+
+            return new ProfileCardService
+            {
+                FirstName = card.User.FirstName,
+                LastName = card.User.LastName,
+                Company = card.CompanyName
+            };
+        }
+
+        public ProfileCardService GetCardServiceWithSocial(string username)
+        {
+            var user = GetUserByUsername(username);
+
+            return new ProfileCardService
+            {
+                FirstName = user.User.FirstName,
+                LastName = user.User.LastName,
+                Company = user.CompanyName,
+                Twitter = user.Twitter
+            };
+        }
     }
 }

@@ -13,5 +13,9 @@ namespace Incognito.Data
         UserProfile GetUserById(string userId);
 
         IEnumerable<ApplicationUser> GetAllUser();
+
+        ProfileCardService GetCardService(string userId);
+
+        ProfileCardService GetCardServiceWithSocial(string username);
     }
 }
