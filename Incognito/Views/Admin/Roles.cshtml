@@ -1,0 +1,51 @@
+﻿@model Incognito.Models.AdminViewModel.RoleVM
+
+@{
+    ViewBag.Title = "Incognito Roles";
+    var count = 1;
+}
+
+<div class="alert alert-danger">
+    @await Html.PartialAsync("_AddRolePartial")
+</div>
+<hr/>
+<h4>Existing Roles</h4>
+<br/>
+
+@if (!Model.IdentityRole.Any())
+{
+    <div class="alert alert-warning"><h4>No Role found in System</h4></div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.IdentityRole)
+            {
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                { count = count + 1; }
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
