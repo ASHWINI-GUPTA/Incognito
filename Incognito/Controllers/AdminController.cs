@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Incognito.Data;
+using Incognito.Models;
 using Incognito.Models.AdminViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,15 +14,18 @@ namespace Incognito.Controllers
     {
         private readonly IUserRepository userRepository;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public AdminController (
             IMessageRepository messageRepository,
             IUserRepository userRepository,
-            RoleManager<IdentityRole> roleManager
+            RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager
             )
         {
             this.userRepository = userRepository;
             this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         public IActionResult Users(string role)
@@ -58,6 +63,29 @@ namespace Incognito.Controllers
                 IdentityRole = userRepository.GetRoles(),
             };
             return View(model);
+        }
+
+        public async Task<IActionResult> EditRole(string id)
+        {
+            if (id == null) return BadRequest();
+            var role = await roleManager.FindByIdAsync(id);
+            if (role == null) return BadRequest();
+            var editRoleVM = new EditRoleVM
+            {
+                Id = role.Id,
+                Name = role.Name,
+                Users = new List<string>()
+            };
+
+            foreach (var user in userManager.Users)
+            {
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    editRoleVM.Users.Add(user.UserName);
+                }
+            }
+
+            return View(editRoleVM);
         }
     }
 }

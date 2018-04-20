@@ -5,12 +5,14 @@
     var count = 1;
 }
 
-<div class="alert alert-danger">
-    @await Html.PartialAsync("_AddRolePartial")
+<div class="card">
+    <div class="card-body">
+        @await Html.PartialAsync("_AddRolePartial")
+    </div>
 </div>
-<hr/>
+<br />
 <h4>Existing Roles</h4>
-<br/>
+<br />
 
 @if (!Model.IdentityRole.Any())
 {
@@ -27,17 +29,17 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.IdentityRole)
+            @foreach (var role in Model.IdentityRole)
             {
                 <tr>
                     <th scope="row">@count</th>
                     <td>
-                        @item.Name
+                        @role.Name
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="EditRole" asp-route-id="@role.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@role.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@role.Id">Delete</a>
                     </td>
                 </tr>
                 { count = count + 1; }

@@ -3,52 +3,72 @@ using Incognito.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Incognito.Controllers.API
 {
     [Authorize]
     [Produces("application/json")]
-    [Route("api/v1/message/{id}")]
+    [Route("api/v1/message")]
     public class MessageController : Controller
     {
-        private readonly MessageContext _messageContext;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly MessageContext messageContext;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMessageRepository messageRepository;
 
-        public MessageController(MessageContext messageContext, UserManager<ApplicationUser> userManager)
+        public MessageController(
+            MessageContext messageContext,
+            UserManager<ApplicationUser> userManager,
+            IMessageRepository messageRepository )
         {
-            _messageContext = messageContext;
-            _userManager = userManager;
+            this.messageContext = messageContext;
+            this.userManager = userManager;
+            this.messageRepository = messageRepository;
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var userId = _userManager.GetUserId(User);
-            var message = _messageContext.Messages
-                .Single(c => c.Id == id && c.RecevierId == userId);
-            message.IsDeleted = true;
-            _messageContext.SaveChanges();
+            var userId = userManager.GetUserId(User);
+            messageRepository.GetMessageByUserId(id, userId).IsDeleted = true;
+            messageContext.SaveChanges();
 
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Archive(int id)
         {
-            var userId = _userManager.GetUserId(User);
-            var message = _messageContext.Messages
+            var userId = userManager.GetUserId(User);
+            var message = messageRepository.GetMessageByUserId(id, userId);
+            message.IsArchived = message.IsArchived == false;
+            messageContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut("report/{id}")]
+        public async Task<IActionResult> Report(int id, [FromBody] ReportMessage reportMessage)
+        {
+            var userId = userManager.GetUserId(User);
+            var message = messageContext.Messages
                 .Single(c => c.Id == id && c.RecevierId == userId);
 
-            if (message.IsArchived == false)
+            if (message.IsReported) return BadRequest();
+
+            message.IsReported = true;
+
+            var report = new ReportMessage
             {
-                message.IsArchived = true;
-            }
-            else
-            {
-                message.IsArchived = false;
-            }
-            _messageContext.SaveChanges();
+                UserId = userId,
+                MessageId = id,
+                Reason = reportMessage.Reason,
+                ReportTime = DateTime.UtcNow
+            };
+            messageContext.Add(report);
+            await messageContext.SaveChangesAsync();
 
             return Ok();
         }

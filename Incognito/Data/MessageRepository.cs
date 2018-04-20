@@ -56,5 +56,11 @@ namespace Incognito.Data
             return messageContext.Messages
                 .Any(e => e.Id == id);
         }
+
+        public Message GetMessageByUserId(int id, string userId)
+        {
+            return messageContext.Messages
+                .Single(c => c.Id == id && c.RecevierId == userId);
+        }
     }
 }

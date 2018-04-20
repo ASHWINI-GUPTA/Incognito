@@ -9,11 +9,17 @@ namespace Incognito.Data
     {
         private readonly UserContext userContext;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public UserRepository(UserContext userContext, UserManager<ApplicationUser> userManager)
+        public UserRepository (
+            UserContext userContext,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             this.userContext = userContext;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public bool CheckUserExist(string username)
@@ -38,11 +44,6 @@ namespace Incognito.Data
 
             return userLookup;
         }
-
-        //public IQueryable<IdentityUser> GetAllUser()
-        //{
-        //    return userManager.Users;
-        //}
 
         public ProfileCardService GetCardService(string userId)
         {
@@ -82,6 +83,11 @@ namespace Incognito.Data
         public IQueryable<ApplicationUser> GetAllAdmins()
         {
             return userManager.GetUsersInRoleAsync("Admin").Result.AsQueryable();
+        }
+
+        public IQueryable<IdentityRole> GetRoles()
+        {
+            return roleManager.Roles;
         }
     }
 }

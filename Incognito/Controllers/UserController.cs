@@ -31,29 +31,18 @@ namespace Incognito.Controllers
         public IActionResult Index()
         {
             var userId = userManager.GetUserId(User);
-            var card = userRepository.GetUserById(userId);
 
-            var profile = new ProfileCardService
-            {
-                FirstName = card.User.FirstName,
-                LastName = card.User.LastName,
-                Company = card.CompanyName
-            };
-
-            var viewModel = new UserViewModel
+            return base.View(new UserViewModel
             {
                 Messages = messageRepository.GetUserMessages(userId),
-                ProfileCardService  = profile
-                
-            };
-            return View(viewModel);
+                ProfileCardService = userRepository.GetCardService(userId)
+            });
         }
 
         //Archive Page
         public IActionResult Archive()
         {
-            var userId = userManager.GetUserId(User);
-            return View(messageRepository.GetUserArchives(userId));
+            return base.View(messageRepository.GetUserArchives(userManager.GetUserId(User)));
         }
 
         //Get current logged in user's identifier

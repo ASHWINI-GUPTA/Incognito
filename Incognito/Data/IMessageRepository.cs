@@ -16,5 +16,7 @@ namespace Incognito.Data
         Message GetMessage(int id);
 
         bool CheckMessageExists(int id);
+
+        Message GetMessageByUserId(int id, string userId);
     }
 }

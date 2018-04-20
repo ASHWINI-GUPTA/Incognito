@@ -1,0 +1,65 @@
+﻿@model Incognito.Models.AdminViewModel.EditRoleVM
+@{
+    ViewBag.Title = "Incognito Roles";
+    var count = 1;
+}
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <form asp-controller="Admin" asp-action="EditRole" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="form-label">Default Id</label>
+                        <input asp-for="Id" class="form-control" readonly="readonly"/>
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Role Name"/>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-edit"></i> Save</button>
+                        <a asp-action="EditRole" class="btn btn-danger">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-5">
+        
+        <h4>Users in @Model.Name Role</h4>
+
+        @if (!Model.Users.Any())
+        {
+            <div class="alert alert-warning"><h4>No User in @Model.Name Role</h4></div>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>
+                            @item
+                        </td>
+                    </tr>
+                    { count = count + 1; }
+                }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>

@@ -1,7 +1,7 @@
 ﻿@model Incognito.Models.ProfileViewModel.UserViewModel
 
 @{
-    ViewData["Title"] = @ViewData["User"] + " Messages";
+    ViewData["Title"] = Model.ProfileCardService.FirstName +"'s" + " Messages";
 }
 
 <div class="row">
@@ -15,7 +15,7 @@
         <hr />
         @if (Model.Messages.Any())
         {
-        <ul class="list-group card-list-group">
+        <ul class="list-group">
             @foreach (var item in Model.Messages)
             {
                 <li class="list-group-item py-4">
@@ -32,7 +32,7 @@
                                 <p>@item.Text</p>
                             </div>
                             <div class="popup-action">
-                                <a asp-action="Details" asp-route-id="@item.Id" style="color:green">
+                                <a href="#" class="js-report-message" message-id="@item.Id" style="color:green">
                                     <i class="far fa-flag"></i> Report
                                 </a>|
                                 <a href="#" class="js-archive-message" message-id="@item.Id">
@@ -83,14 +83,14 @@
                                     url: "/api/v1/message/" + link.attr("message-id"),
                                     method: "DELETE"
                                 })
-                                .done(function () {
-                                    link.parents("li").fadeOut(function () {
-                                        $(this).remove();
+                                    .done(function () {
+                                        link.parents("li").fadeOut(function () {
+                                            $(this).remove();
+                                        });
+                                    })
+                                    .fail(function () {
+                                        alert("Something failed!");
                                     });
-                                })
-                                .fail(function () {
-                                    alert("Something failed!");
-                                });
                             }
                         }
                     }
@@ -104,14 +104,41 @@
                     url: "/api/v1/message/" + link.attr("message-id"),
                     method: "PUT"
                 })
-                .done(function () {
-                    link.parents("li").fadeOut(function () {
-                        $(this).remove();
+                    .done(function () {
+                        link.parents("li").fadeOut(function () {
+                            $(this).remove();
+                        });
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
                     });
+            });
+
+            //js-report-message
+            $(".js-report-message").click(function (e) {
+                var link = $(e.target);
+                bootbox.prompt({
+                    title: "What is your name?",
+                    callback: function (result) {
+                        $.ajax({
+                            method: "POST",
+                            url: "/api/v1/message/report/" + link.attr("message-id"),
+                            data: { id: link.attr("message-id"), reason: result },
+                            dataType: "json",
+                         })
+                        //$.post("/api/v1/message/" + link.attr("message-id"), { id: link.attr("message-id"), reason: result },,
+                        //    function (returnedData) {
+                        //        console.log(returnedData);
+                        //    }
+                        //)
+                            .done(function () {
+                                console.log("Success")
+                            })
+                            .fail(function () {
+                                alert("Something failed!");
+                            });
+                    }
                 })
-                .fail(function () {
-                    alert("Something failed!");
-                });
             });
         });
     </script>

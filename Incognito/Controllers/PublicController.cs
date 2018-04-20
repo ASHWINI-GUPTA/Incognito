@@ -46,66 +46,32 @@ namespace Incognito.Controllers
             if (!userCheck) return RedirectToAction("UserNotFound", new RouteValueDictionary(
                         new { controller = "Home", action = "UserNotFound" }));
 
-            var user = userRepository.GetUserByUsername(username);
-
-            var profile = new ProfileCardService
+            return base.View(new PublicVM
             {
-                FirstName = user.User.FirstName,
-                LastName = user.User.LastName,
-                Company = user.CompanyName,
-                Twitter = user.Twitter
-            };
-
-            var viewModel = new PublicVM
-            {
-                //PublicProfile = mapper.Map<UserProfile>(user),
-                PublicMessage = new MessageVM {
-                    ReceiverId = user.UserId
+                PublicMessage = new MessageVM
+                {
+                    ReceiverId = userRepository.GetUserByUsername(username).UserId
                 },
-                ProfileCardService = profile
-            };
-
-            return View(viewModel);
+                ProfileCardService = userRepository.GetCardServiceWithSocial(username)
+            });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(PublicVM viewModel)
         {
-            //var user = viewModel.PublicProfile.User;
+            if (!ModelState.IsValid) return View(viewModel);
 
-            if (ModelState.IsValid)
+            var message = new Message
             {
-                var senderId = userManager.GetUserId(User);
-
-                var message = new Message
-                {
-                    RecevierId =viewModel.PublicMessage.ReceiverId,
-                    Text = viewModel.PublicMessage.Text,
-                    SentTime = DateTime.UtcNow,
-                };
-                if (senderId == null)
-                {
-                    message.SenderId = "Not Provided";
-                } else
-                {
-                    message.SenderId = senderId;
-                }
-                messageContext.Add(message);
-                await messageContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Success));
-            }
-
-            //var vModel = new PublicVM
-            //{
-            //    PublicProfile = mapper.Map<UserProfile>(viewModel.PublicProfile),
-            //    PublicMessage = new MessageVM
-            //    {
-            //        ReceiverId = user.Id
-            //    },
-            //};
-
-            return View(viewModel);
+                RecevierId = viewModel.PublicMessage.ReceiverId,
+                Text = viewModel.PublicMessage.Text,
+                SentTime = DateTime.UtcNow,
+                SenderId = userManager.GetUserId(User) ?? "Not Provided"
+            };
+            messageContext.Add(message);
+            await messageContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Success));
         }
 
         public IActionResult Success()
