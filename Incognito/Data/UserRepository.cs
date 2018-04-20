@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Incognito.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Incognito.Data
@@ -8,10 +8,12 @@ namespace Incognito.Data
     public class UserRepository : IUserRepository
     {
         private readonly UserContext userContext;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserRepository(UserContext userContext)
+        public UserRepository(UserContext userContext, UserManager<ApplicationUser> userManager)
         {
             this.userContext = userContext;
+            this.userManager = userManager;
         }
 
         public bool CheckUserExist(string username)
@@ -37,10 +39,10 @@ namespace Incognito.Data
             return userLookup;
         }
 
-        public IEnumerable<ApplicationUser> GetAllUser()
-        {
-            return userContext.Users.AsEnumerable();
-        }
+        //public IQueryable<IdentityUser> GetAllUser()
+        //{
+        //    return userManager.Users;
+        //}
 
         public ProfileCardService GetCardService(string userId)
         {
@@ -65,6 +67,21 @@ namespace Incognito.Data
                 Company = user.CompanyName,
                 Twitter = user.Twitter
             };
+        }
+
+        public IQueryable<ApplicationUser> GetAllUsers()
+        {
+            return userManager.GetUsersInRoleAsync("Member").Result.AsQueryable();
+        }
+
+        public IQueryable<ApplicationUser> GetAllModerators()
+        {
+            return userManager.GetUsersInRoleAsync("Moderator").Result.AsQueryable();
+        }
+
+        public IQueryable<ApplicationUser> GetAllAdmins()
+        {
+            return userManager.GetUsersInRoleAsync("Admin").Result.AsQueryable();
         }
     }
 }

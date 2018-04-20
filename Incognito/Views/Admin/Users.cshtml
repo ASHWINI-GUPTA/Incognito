@@ -1,0 +1,50 @@
+﻿@model IQueryable<ApplicationUser>
+
+@{
+    ViewBag.Title = "Incognito Users";
+    var count = 1;
+}
+
+<h2>Users</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning"><h4>No User in the System</h4></div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@count</th>
+                <td>
+                    @{
+                        var fullname = $"{item.FirstName} {item.LastName}";
+                    }
+                    @fullname
+                </td>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            {count = count + 1;}
+        }
+        </tbody>
+    </table>
+}

@@ -1,6 +1,6 @@
 ﻿using Incognito.Models;
-using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Incognito.Data
 {
@@ -12,10 +12,15 @@ namespace Incognito.Data
 
         UserProfile GetUserById(string userId);
 
-        IEnumerable<ApplicationUser> GetAllUser();
-
         ProfileCardService GetCardService(string userId);
 
         ProfileCardService GetCardServiceWithSocial(string username);
+
+        IQueryable<ApplicationUser> GetAllUsers();
+
+        IQueryable<ApplicationUser> GetAllModerators();
+
+        IQueryable<ApplicationUser> GetAllAdmins();
+
     }
 }
