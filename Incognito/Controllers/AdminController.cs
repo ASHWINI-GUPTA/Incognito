@@ -124,6 +124,22 @@ namespace Incognito.Controllers
             return View(editRoleVM);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditRole(EditRoleVM editRoleViewModel)
+        {
+            var role = await _roleManager.FindByIdAsync(editRoleViewModel.Id);
+
+            if (role == null) return RedirectToAction("Roles", _roleManager.Roles);
+
+            role.Name = editRoleViewModel.Name;
+            var result = await _roleManager.UpdateAsync(role);
+
+            if (result.Succeeded)
+                return RedirectToAction("Roles");
+
+            return View(editRoleViewModel);
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
