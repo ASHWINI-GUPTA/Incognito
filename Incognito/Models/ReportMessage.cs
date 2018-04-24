@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Incognito.Models
 {
@@ -10,16 +8,23 @@ namespace Incognito.Models
     {
         public int Id { get; set; }
 
-        public Message Message { get; set; }
-
-        public int MessageId { get; set; }
-
-        public string Reason { get; set; }
-
-        public ApplicationUser User { get; set; }
-
+        [Required]
         public string UserId { get; set; }
 
+        [Required]
+        public int MessageId { get; set; }
+
+        [Required]
+        [MaxLength(500)]
+        public string Reason { get; set; }
+
         public DateTime ReportTime { get; set; }
+        
+        //[ForeignKey("UserId")]
+        //public ApplicationUser User { get; set; }
+
+        [ForeignKey("MessageId")]
+        public Message Message { get; set; }
+
     }
 }
