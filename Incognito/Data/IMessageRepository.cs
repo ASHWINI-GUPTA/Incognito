@@ -7,6 +7,8 @@ namespace Incognito.Data
     {
         IList<Message> GetAllMessages();
 
+        IList<ReportMessage> GetReportedMessage();
+
         IList<Message> GetUserMessages(string userId);
 
         IList<Message> GetUserArchives(string userId);

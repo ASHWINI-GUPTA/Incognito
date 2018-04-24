@@ -61,31 +61,31 @@ $(document).ready(function () {
     });
 
     //js-report-message
-//    $(".js-report-message").click(function (e) {
-//        var link = $(e.target);
-//        bootbox.prompt({
-//            title: "What is your name?",
-//            callback: function (result) {
-//                $.ajax({
-//                    method: "POST",
-//                    url: "/api/v1/message/report/" + link.attr("message-id"),
-//                    data: { id: link.attr("message-id"), reason: result },
-//                    dataType: "json",
-//                })
-//                    //$.post("/api/v1/message/" + link.attr("message-id"), { id: link.attr("message-id"), reason: result },,
-//                    //    function (returnedData) {
-//                    //        console.log(returnedData);
-//                    //    }
-//                    //)
-//                    .done(function () {
-//                        console.log("Success")
-//                    })
-//                    .fail(function () {
-//                        alert("Something failed!");
-//                    });
-//            }
-//        })
-//    });
+    $(".js-report-message").click(function (e) {
+        var link = $(e.target);
+        bootbox.prompt({
+            title: "What is your name?",
+            callback: function (result) {
+                $.ajax({
+                    method: "POST",
+                    url: "/api/v1/message/report/" + link.attr("message-id"),
+                    data: { id: link.attr("message-id"), reason: result }
+                    //dataType: "json",
+                })
+                    //$.post("/api/v1/message/" + link.attr("message-id"), { id: link.attr("message-id"), reason: result },,
+                    //    function (returnedData) {
+                    //        console.log(returnedData);
+                    //    }
+                    //)
+                    .done(function () {
+                        console.log("Success");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            }
+        });
+    });
 
     //js-delete-role
     $(".js-delete-role").click(function (e) {

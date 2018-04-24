@@ -12,13 +12,13 @@ namespace Incognito.Controllers.API
     [Authorize]
     [Produces("application/json")]
     [Route("api/v1/message")]
-    public class MessageController : Controller
+    public class MessageAPIController : Controller
     {
         private readonly MessageContext messageContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMessageRepository messageRepository;
 
-        public MessageController(
+        public MessageAPIController(
             MessageContext messageContext,
             UserManager<ApplicationUser> userManager,
             IMessageRepository messageRepository )
@@ -49,14 +49,14 @@ namespace Incognito.Controllers.API
             return Ok();
         }
 
-        [HttpPut("report/{id}")]
-        public async Task<IActionResult> Report(int id, [FromBody] ReportMessage reportMessage)
+        [HttpPost("report/{id}")]
+        public async Task<IActionResult> Report(int id, string reason)
         {
             var userId = userManager.GetUserId(User);
             var message = messageContext.Messages
                 .Single(c => c.Id == id && c.RecevierId == userId);
 
-            if (message.IsReported) return BadRequest();
+            if (message.IsReported) return Ok();
 
             message.IsReported = true;
 
@@ -64,7 +64,7 @@ namespace Incognito.Controllers.API
             {
                 UserId = userId,
                 MessageId = id,
-                Reason = reportMessage.Reason,
+                Reason = reason,
                 ReportTime = DateTime.UtcNow
             };
             messageContext.Add(report);

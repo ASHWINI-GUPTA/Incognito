@@ -1,4 +1,5 @@
 ﻿using Incognito.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,6 +62,13 @@ namespace Incognito.Data
         {
             return messageContext.Messages
                 .Single(c => c.Id == id && c.RecevierId == userId);
+        }
+
+        public IList<ReportMessage> GetReportedMessage()
+        {
+            return messageContext.ReportMessages
+                .Include(m => m.Message)
+                .ToList();
         }
     }
 }
