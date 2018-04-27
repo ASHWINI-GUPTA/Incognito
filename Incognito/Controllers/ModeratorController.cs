@@ -18,5 +18,10 @@ namespace Incognito.Controllers
         {
             return View(_messageRepository.GetReportedMessage());
         }
+
+        public IActionResult ReportMessageDetail(int Id)
+        {
+            return View(_messageRepository.GetReportMessageDetail(Id));
+        }
     }
 }
