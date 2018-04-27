@@ -46,8 +46,8 @@ namespace Incognito
             services.AddAuthorization(options => 
             {
                 options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("RequireMemberRole", policy => policy.RequireRole("Member"));
-                options.AddPolicy("RequireModeratorRole", policy => policy.RequireRole("Member", "Admin"));
+                options.AddPolicy("RequireMemberRole", policy => policy.RequireRole("Member", "Admin"));
+                options.AddPolicy("RequireModeratorRole", policy => policy.RequireRole("Moderator", "Admin"));
             });
         }
 

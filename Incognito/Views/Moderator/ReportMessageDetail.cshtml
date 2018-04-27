@@ -1,0 +1,53 @@
+﻿@using System.Globalization;
+@model ReportMessage
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<div class="row">
+    <div class="col-lg-5">
+        @*TODO: include more detail in second iteration*@
+        <h4>Details</h4>
+        <br />
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th scope="row">Reason</th>
+                    <td>@Model.Reason</td>
+                </tr>
+                <tr>
+                    <th scope="row">Time</th>
+                    <td>@Model.ReportTime.ToLocalTime().ToString("hh:mm tt MMMM dd, yyyy", CultureInfo.InvariantCulture)</td>
+                </tr>
+                <tr>
+                    <th scope="row">User Id</th>
+                    <td colspan="2">@Model.UserId</td>
+                </tr>
+                <tr>
+                    <th scope="row">Message Id</th>
+                    <td colspan="2">@Model.MessageId</td>
+                </tr>
+                <tr>
+                    <th scope="row">Send Time</th>
+                    <td colspan="2">@Model.Message.SentTime.ToLocalTime().ToString("hh:mm tt MMMM dd, yyyy", CultureInfo.InvariantCulture)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-7">
+        <h4>Message</h4>
+        <br />
+        <div class="list-group-item py-4">
+            <div class="media">
+                <div class="media-body">
+                    <div class="media-heading">
+                        <small class="float-right text-muted">
+                            <time class="timeago" datetime="@Model.Message.SentTime.ToLocalTime().ToString("o")"></time>
+                        </small>
+                        <p>@Model.Message.Text</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
