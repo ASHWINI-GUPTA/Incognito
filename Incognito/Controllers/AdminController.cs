@@ -18,19 +18,22 @@ namespace Incognito.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<AccountController> _logger;
+        private readonly UserContext _userContext;
 
         public AdminController (
             IMessageRepository messageRepository,
             IUserRepository userRepository,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
-            ILogger<AccountController> logger
+            ILogger<AccountController> logger,
+            UserContext userContext
             )
         {
             _userRepository = userRepository;
             _roleManager = roleManager;
             _userManager = userManager;
             _logger = logger;
+            _userContext = userContext;
         }
 
         public IActionResult Users(string role)
@@ -67,6 +70,15 @@ namespace Incognito.Controllers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "Moderator");
+
+                var profile = new UserProfile
+                {
+                    UserId = user.Id
+                };
+
+                _userContext.Add(profile);
+                await _userContext.SaveChangesAsync();
+
                 _logger.LogInformation("User created with Moderator role.");
                 return RedirectToAction("Users");
             }
