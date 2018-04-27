@@ -70,5 +70,12 @@ namespace Incognito.Data
                 .Include(m => m.Message)
                 .ToList();
         }
+
+        public ReportMessage GetReportMessageDetail(int id)
+        {
+            return messageContext.ReportMessages
+                .Include(m => m.Message)
+                .Single(r => r.Id == id);
+        }
     }
 }
