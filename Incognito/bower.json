@@ -2,9 +2,17 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "bootstrap": "4.0.0",
-    "bootswatch": "4.0.0",
+    "bootstrap": "v4.1.0",
+    "bootswatch": "v4.1.0",
     "fontawesome": "*",
-    "bootbox.js": "*"
+    "bootbox.js": "*",
+    "jquery-validation": "1.17.0",
+    "jquery-validation-unobtrusive": "v3.2.9",
+    "font-awesome": "5.0.10"
+  },
+  "resolutions": {
+    "bootstrap": "v4.1.0",
+    "bootswatch": "v4.1.0",
+    "jquery-validation-unobtrusive": "v3.2.9"
   }
 }

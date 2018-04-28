@@ -1,4 +1,5 @@
-﻿@model IList<Incognito.Models.ReportMessage>
+﻿@using System.Globalization;
+@model IList<Incognito.Models.ReportMessage>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,7 +7,7 @@
 
 <h2>Index</h2>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -16,7 +17,7 @@
                 Reason
             </th>
             <th>
-                Time
+                Reported Time
             </th>
             <th></th>
         </tr>
@@ -24,20 +25,20 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Message.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReportTime)
-            </td>
-            <td>
-                <a asp-action="ReportMessageDetail" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
+            <tr>
+                <td class="ellipsis">
+                    @Html.DisplayFor(modelItem => item.Message.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>
+                    <time class="timeago" datetime="@item.ReportTime.ToLocalTime().ToString("o")"></time>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary" asp-action="ReportMessageDetail" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

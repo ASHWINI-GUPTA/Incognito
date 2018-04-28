@@ -1,15 +1,7 @@
 ﻿/* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-top: 50px;
-    padding-bottom: 60px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+    padding: 50px 20px 60px 20px;
 }
 
 /* QR code generator */
@@ -34,9 +26,6 @@
     .message .details {
         background-color: #E3F2FD;
         border-left: 6px solid #2196F3;
-        /*border-top: 4px solid #2196F3;
-        -ms-border-top-left-radius: 8px;
-        border-top-left-radius: 8px;*/
         padding: 16px;
         margin-top: 16px !important;
         margin-bottom: 16px !important;
@@ -130,7 +119,7 @@
     line-height: 2rem;
     border-radius: 50%;
     display: inline-block;
-    background: #ced4da no-repeat center/cover;
+    background: #ced4da no-repeat center;
     position: relative;
     text-align: center;
     color: #868e96;
@@ -148,11 +137,10 @@
     height: 8rem;
     line-height: 7rem;
     display: inline-block;
-    background: #79e3ff no-repeat center/cover;
+    background: #79e3ff no-repeat center;
     position: relative;
     text-align: center;
     font-weight: 600;
-    vertical-align: botto;
     font-size: 3.5rem;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -163,4 +151,11 @@
     margin-bottom: 1rem;
     background-color: #bfdbef;
     color: #118acb;
+}
+
+.ellipsis {
+    max-width:100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

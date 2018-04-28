@@ -1,9 +1,6 @@
-﻿@if (User.Identity.IsAuthenticated && User.IsInRole("Moderatorw"))
+﻿@if (User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
 {
     <li class="nav-item">
-        <a class="nav-link" asp-controller="" asp-action="">Moderator</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="" asp-action="">Setting</a>
+        <a class="nav-link" asp-controller="Moderator" asp-action="Report">Report Messages</a>
     </li>
 }
