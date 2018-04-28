@@ -1,7 +1,17 @@
 ﻿@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
     <li class="nav-item">
-        <a class="nav-link" asp-controller="Admin" asp-action="Users">Users</a>
+        <a class="nav-link" asp-controller="Admin" asp-action="AddUser">Add Mod</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Users
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" asp-controller="Admin" asp-action="Users">Users</a>
+            <a class="dropdown-item" asp-controller="Admin" asp-action="Users" asp-route-role="Moderator">Moderators</a>
+            <a class="dropdown-item" asp-controller="Admin" asp-action="Users" asp-route-role="Admin">Admin</a>
+        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-controller="Admin" asp-action="Roles">Roles</a>
