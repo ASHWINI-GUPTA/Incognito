@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Incognito.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -88,6 +89,12 @@ namespace Incognito.Data
         public IQueryable<IdentityRole> GetRoles()
         {
             return roleManager.Roles;
+        }
+
+        public async Task<bool> IsMember (string username)
+        {
+            var user = await userManager.FindByNameAsync(username);
+            return await userManager.IsInRoleAsync(user, "Member");
         }
     }
 }
