@@ -49,7 +49,7 @@ namespace Incognito.Controllers
             if (!isMember) return RedirectToAction("UserNotFound", new RouteValueDictionary(
                         new { controller = "Home", action = "UserNotFound" }));
 
-            return base.View( new PublicVM
+            return base.View( new ProfileVM
             {
                 PublicMessage = new MessageVM
                 {
@@ -61,7 +61,7 @@ namespace Incognito.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(PublicVM viewModel)
+        public async Task<IActionResult> Index(ProfileVM viewModel)
         {
             if (!ModelState.IsValid) return View(viewModel);
 

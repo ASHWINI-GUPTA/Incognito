@@ -4,12 +4,10 @@ using Incognito.Models.ProfileViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Incognito.Controllers
-{ 
+{
     [Authorize]
     public class UserController : Controller
     {
@@ -32,7 +30,7 @@ namespace Incognito.Controllers
         {
             var userId = userManager.GetUserId(User);
 
-            return base.View(new UserViewModel
+            return base.View(new ProfileVM
             {
                 Messages = messageRepository.GetUserMessages(userId),
                 ProfileCardService = userRepository.GetCardService(userId)
@@ -47,6 +45,6 @@ namespace Incognito.Controllers
 
         //Get current logged in user's identifier
         private Task<ApplicationUser> GetCurrentUserAsync() =>
-            userManager.GetUserAsync(HttpContext.User);
+                userManager.GetUserAsync(HttpContext.User);
     }
 }
