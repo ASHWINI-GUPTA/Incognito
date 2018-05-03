@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Incognito.Data
 {
@@ -24,5 +25,7 @@ namespace Incognito.Data
         IQueryable<ApplicationUser> GetAllAdmins();
 
         IQueryable<IdentityRole> GetRoles();
+
+        Task<bool> IsMember(string username);
     }
 }

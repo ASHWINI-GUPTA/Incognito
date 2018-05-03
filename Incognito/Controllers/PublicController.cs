@@ -34,19 +34,22 @@ namespace Incognito.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(string username)
+        public async Task<ActionResult> Index(string username)
         {
             // Redirect to About if no username is given
             if (username == null) return RedirectToAction("About", new RouteValueDictionary(
                         new { controller = "Home", action = "About" }));
 
             var userCheck = userRepository.CheckUserExist(username);
-
-            // Returning NotFound is no User found
+            // Returning NotFound if no User found and user is not in Member role
             if (!userCheck) return RedirectToAction("UserNotFound", new RouteValueDictionary(
                         new { controller = "Home", action = "UserNotFound" }));
 
-            return base.View(new PublicVM
+            var isMember = await userRepository.IsMember(username);
+            if (!isMember) return RedirectToAction("UserNotFound", new RouteValueDictionary(
+                        new { controller = "Home", action = "UserNotFound" }));
+
+            return base.View( new ProfileVM
             {
                 PublicMessage = new MessageVM
                 {
@@ -58,7 +61,7 @@ namespace Incognito.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(PublicVM viewModel)
+        public async Task<IActionResult> Index(ProfileVM viewModel)
         {
             if (!ModelState.IsValid) return View(viewModel);
 

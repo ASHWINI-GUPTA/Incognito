@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Incognito.Models.MessageViewModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Incognito.Models.ProfileViewModel
 {
@@ -11,5 +8,9 @@ namespace Incognito.Models.ProfileViewModel
         public UserProfileVM UserProfileVM { get; set; }
 
         public ProfileCardService ProfileCardService { get; set; }
+
+        public IEnumerable<Message> Messages { get; set; }
+
+        public MessageVM PublicMessage { get; set; }
     }
 }
