@@ -1,7 +1,7 @@
+*[ LOGO HERE ]*
+
 # Incognito
-
-
-Incognito is anonymous message sending application created for colleagues, friends and others, here they can able to share thoughts about you which they were unable to express impersonal.
+Incognito is anonymous message sending application created for colleagues, friends and others, using Incognito they can able to share thoughts about you which they were unable to express impersonally.
 
 ## Technology Stack
 Incognito is created using - 
@@ -12,9 +12,7 @@ Incognito is created using -
  - JavaScript, jQuery
  - Bootstrap 4.
 
-
 ## Prerequisites
-
  - Visual Studio 2017
  - VS Code (Optional)
  - ASP.NET Core 2.0 which has a hard requirement on .NET Core Runtime 2.0.0 and .NET Core SDK 2.0.0. Please install these items from [here](https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md)
@@ -24,13 +22,10 @@ Incognito is created using -
 Make sure you have .NET Core 2.0 installed. VS2017 will automatically install all the necessary bower & .NET dependencies when you open the project.
 
 **VS Code**
-
 > Note: I used full version of Visual Studio, same can be done using VS Code with few extra steps.
 > Make sure you have the C# extension & .NET Core Debugger installed.
 
-
 ## How to run on local
-
 -   Open the `Incognito.sln` solution in Visual Studio
 -   Build the solution
 -   Modify the default connection string accordingly if needed.
