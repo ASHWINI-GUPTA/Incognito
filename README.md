@@ -1,6 +1,5 @@
-*[ LOGO HERE ]*
+<p align="center"><img src="https://s9.postimg.cc/aa17j2a0v/LOGO_PROPOSAL_FOR_INCOGNITO.jpg"></p>
 
-# Incognito
 Incognito is anonymous message sending application created for colleagues, friends and others, using Incognito they can able to share thoughts about you which they were unable to express impersonally.
 
 ## Technology Stack
@@ -34,3 +33,6 @@ Make sure you have .NET Core 2.0 installed. VS2017 will automatically install al
 
 ## Found a Bug? Want to Contribute?
 Nothing's ever perfect, but please let me know by creating an issue (make sure there isn't an existing one about it already), and we'll try and work out a fix for it! If you have any good ideas, or want to contribute, feel free to either make an Issue with the Proposal, or just make a PR from your Fork.
+
+
+<p align="center"><img src="https://s9.postimg.cc/6qkbpyl7z/LOGO_PROPOSAL_FOR_INCOGNITO_2.jpg"></p>
